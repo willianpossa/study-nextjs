@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { loadGetInitialProps } from 'next/dist/lib/utils';
 import ReactGA from 'react-ga';
 
 export default () => Composed =>
     class extends Component {
         static getInitialProps(ctx) {
-            return loadGetInitialProps(Composed, ctx);
+            if(Composed.getInitialProps) {
+                return Composed.getInitialProps(ctx);
+            }
+
+            return {};
         }
 
         componentDidMount() {
